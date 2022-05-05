@@ -12,8 +12,8 @@ public class MongoConfig {
     @Bean
     CommandLineRunner commandLineRunner(EmployeeMongoRepository employeeMongoRepository) {
         return strings -> {
-        	employeeMongoRepository.save(new Employee("qr0om3eQrJfWZQA5Asheg", "alvin", "Ryan", "description"));
-        	employeeMongoRepository.save(new Employee("h33eQrJfWZQA5Aqr0omNQ", "ryson", "Reid", "description"));
+        	employeeMongoRepository.save(new Employee("Alvin", "Ryan", "description1"));
+        	employeeMongoRepository.save(new Employee("Ryson", "Reid", "description2"));
         };
     }
 }

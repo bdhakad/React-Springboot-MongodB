@@ -1,3 +1,4 @@
+import { baseUrl } from '../utils/constants';
 async function deleteEmployee(employee) {
     var requestOptions = {
         method: 'DELETE',
@@ -7,7 +8,7 @@ async function deleteEmployee(employee) {
         },
         body: JSON.stringify(employee)
     };
-    fetch('http://localhost:8080/api/employees/delete', requestOptions)
+    fetch(`${baseUrl}/api/employees/delete`, requestOptions)
         .then(response => alert('Employee deleted successfully !'))
         .then(result => console.log(result))
         .catch(error => alert('Error deleting employee : ' + error.message))

@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress-service
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: demo.localtest.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: react-frontend-service
+            port:
+              number: 5000
+# cli way to create ingress
+# kubectl create ingress frontend-ingress-service --class=nginx   --rule=demo.localdev2.me/*=react-frontend-service:5000
+# kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 5000:80
+---
+# alternate to ingress - external service configuration
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: external-react-frontend-service
+# spec:
+#   selector:
+#     app: react-frontend
+#   type: LoadBalancer
+#   ports:
+#     - protocol: TCP
+#       port: 3000
+#       targetPort: 80
+#       nodePort: 30003

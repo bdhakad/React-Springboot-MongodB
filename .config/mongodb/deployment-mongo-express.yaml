@@ -1,0 +1,71 @@
+# Deployment configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express-deployment
+  labels:
+    app: mongo-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+      - name: mongo-express
+        image: mongo-express
+        ports:
+        - containerPort: 8081
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100M
+          limits:
+            cpu: 500m
+            memory: 1000M
+        env:
+          - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-username
+          - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-password
+          - name: ME_CONFIG_MONGODB_SERVER
+            valueFrom:
+              configMapKeyRef:
+                name: mongodb-configmap
+                key: database_url
+          # - name: ME_CONFIG_MONGODB_PORT
+          #   valueFrom:
+          #     configMapKeyRef:
+          #       name: mongodb-configmap
+          #       key: database_port
+
+# ME_CONFIG_MONGODB_ADMINUSERNAME | ''              | MongoDB admin username
+# ME_CONFIG_MONGODB_ADMINPASSWORD | ''              | MongoDB admin password
+# ME_CONFIG_MONGODB_PORT          | 27017           | MongoDB port
+# ME_CONFIG_MONGODB_SERVER
+
+---
+# service configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service
+spec:
+  selector:
+    app: mongo-express
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30000

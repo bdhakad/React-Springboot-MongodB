@@ -1,4 +1,4 @@
-
+import {baseUrl} from '../utils/constants';
 async function fetchAllEmployees() {
   var requestOptions = {
     method: 'GET',
@@ -7,7 +7,7 @@ async function fetchAllEmployees() {
     },
     redirect: 'follow'
   };
-  const response = await fetch("http://localhost:8080/api/employees/list", requestOptions);
+  const response = await fetch(`${baseUrl}/api/employees/list`, requestOptions);
   return response.json();
 }
 export default fetchAllEmployees;

@@ -26,7 +26,7 @@ The react app will be served on
 
 ## Run  using docker-compose
  * build spring-boot either by running the `mvn install`
- * build the frontend react app by running ` npm install && npm run build`
+ * build the frontend react app by running `npm install && npm run build`
  * build the docker images for both react app and sring-boot app. The build scripts inside script folder will do it for if you use them.
  * Once both the images are built, change the image names, port, env etc in `docker-compose.yml` file.
  * In this case I have added two more images to the compose file i.e. mongo and mongo-express. This will create a mongodb instance and the corresponding mongo-express to view the database from UI.
@@ -35,5 +35,8 @@ The react app will be served on
  ```
      docker compose -f docker-compose.yml up
  ```
+ * spring-boot rest api will be running on port `8080`
+ * react app will be running on port `3000`
 
 
+#

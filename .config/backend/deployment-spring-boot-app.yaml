@@ -1,0 +1,54 @@
+# Deployment configuration
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-app-deployment
+  labels:
+    app: spring-boot-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+      - name: spring-boot-app
+        image: dhakadb/spring-boot-app:latest
+        # resources:
+        #   requests:
+        #     cpu: 50m
+        #     memory: 500M
+        #   limits:
+        #     cpu: 500m
+        #     memory: 1000M
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: backend-configmap
+        env:
+          - name: spring.data.mongodb.uri
+            valueFrom:
+              secretKeyRef:
+                name: spring-boot-secret
+                key: mongodb-uri
+
+---
+# service configuration
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-app-service
+  labels:
+    app: spring-boot-app
+spec:
+  selector:
+    app: spring-boot-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

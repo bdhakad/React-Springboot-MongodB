@@ -1,5 +1,6 @@
-
+import { baseUrl } from '../utils/constants';
 async function addEmployee(employee) {
+  delete employee.id;
   var requestOptions = {
     method: 'POST',
     headers: {
@@ -8,7 +9,7 @@ async function addEmployee(employee) {
     },
     body: JSON.stringify(employee)
   };
-  fetch('http://localhost:8080/api/employees/add', requestOptions)
+  fetch(`${baseUrl}/api/employees/add`, requestOptions)
     .then(response => alert('Employee added successfully !'))
     .then(result => console.log(result))
     .catch(error => alert('Error adding employee : ' + error.message))

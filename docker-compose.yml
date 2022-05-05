@@ -18,10 +18,10 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example2
       ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
   backend:
-    image: spring-boot-docker:latest
+    image: dhakadb/spring-boot-app:latest
     ports:
       - 8080:8080
   frontend:
-    image: react-frontend:latest
+    image: dhakadb/react-frontend:latest
     ports:
       - 3000:3000             

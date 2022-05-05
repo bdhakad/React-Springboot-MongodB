@@ -10,4 +10,4 @@ scripts/build_backend.sh
 docker rmi $(docker images -f "dangling=true" -q) --force
 
 # deploy app
-docker-compose -f docker-compose.yml up
+#docker-compose -f docker-compose.yml up

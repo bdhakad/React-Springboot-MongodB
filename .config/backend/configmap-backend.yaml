@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-configmap
+data:
+  spring.main.allow-bean-definition-overriding: "true"
+  origins.urls: http://localhost:3000,http://localhost:4200,https://demo.localtest.me
+  origins.allowed.methods: GET,POST,PUT,DELETE,PATCH
+  max.age.seconds: "3600"
+  api.mapping.url: /api/**
+  spring.data.mongodb.database: dev

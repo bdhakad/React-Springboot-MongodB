@@ -1,3 +1,4 @@
+import { baseUrl } from '../utils/constants';
 async function updateEmployee(employee) {
   var requestOptions = {
     method: 'PATCH',
@@ -7,7 +8,7 @@ async function updateEmployee(employee) {
     },
     body: JSON.stringify(employee)
   };
-  fetch("http://localhost:8080/api/employees/update", requestOptions)
+  fetch(`${baseUrl}/api/employees/update`, requestOptions)
     .then(response => alert('Employee updated successfully !'))
     .then(result => console.log(result))
     .catch(error => alert('Error updating employee : ' + error.message))
